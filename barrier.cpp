@@ -25,26 +25,33 @@ namespace synchronization
 
    void barrier::arriveAndWait( void ) {
       // Write your code here
+      // mutex for critical section where count is incremented for each thread
       sem_wait(&mutex);
       count++;
+      // if last thread, down gate2, and up gate1. this makes gate2 unavailable for the earlier threads so no thread can
+      // lap all the others, and then makes gate1 available for them to progress to second turnstile
       if(count == n){
          sem_wait(&gate2);
          sem_post(&gate1);
       }
       sem_post(&mutex);
 
+      // wait at gate1, and then open it for the thread behind them.
       sem_wait(&gate1);
       sem_post(&gate1);
 
+      // critical section, count is decremented by each thread
       sem_wait(&mutex);
       count--;
 
+      // if last thread has reached, make gate1 unavailable, and open gate2
       if(count == 0){
          sem_wait(&gate1);
          sem_post(&gate2);
       }
       sem_post(&mutex);
 
+      // wait at gate2, then open it for the thread behind
       sem_wait(&gate2);
       sem_post(&gate2);
       return;
