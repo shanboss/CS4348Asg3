@@ -11,6 +11,11 @@ namespace synchronization
    // Provides a reusable barrier
    class barrier {
    private:
+      sem_t mutex; 
+      sem_t gate1; 
+      sem_t gate2; 
+      int count;
+      int n;
       // Declare your variables here
 
    public:
