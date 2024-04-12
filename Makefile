@@ -1,8 +1,8 @@
-CC = /bin/g++
+CC = g++
 CCFLAGS = -g -std=c++11
-INCLUDES =
-LIBRARIES = -lboost_system -lboost_thread -lpthread -lrt
-# LIBRARIES = -lpthread
+INCLUDES = -I/usr/local/include
+#LIBRARIES = -lboost_system -lboost_thread -lpthread -lrt
+LIBRARIES = -lpthread
 EXECUTABLES = prefix-sum
 
 prefix-sum: prefix-sum.o barrier.o

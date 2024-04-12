@@ -1,4 +1,5 @@
 #include "barrier.h"
+#include <semaphore.h>
 
 namespace synchronization
 {
